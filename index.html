@@ -15,11 +15,26 @@
     <nav class="navbar navbar-warning bg-light">
         <div class="container navbar-container mx-0">
             <div class="row w-100">
-                <div class="col-4 col-sm-2">
+                <div class="col-4 col-md-2">
                     <button type="button" id="high-score-button" class="btn btn-info">
                         See Who's Winning...
                     </button>
                 </div>
+
+                <div class="col-3 col-md-7"> </div>
+
+                <div class="col-5 col-md-3">
+                    <form>
+                        <div class="form-group row">
+                            <label for="time-remaining" class="col-sm-7 col-form-label">
+                                Time Remaining!
+                            </label>
+                            <div class="col=sm-5">
+                                <input type="number" readonly class="form-control" id="time-remaining" placeholder="0">
+                            </div>
+                        </div>
+                </div>
+
             </div>
         </div>
     </nav>
@@ -45,10 +60,15 @@
         </div>
 
         <div class="row">
-
+            <div class="col-12 text-center">
+                <button id="start-button" type="button" class="btn btn-danger btn-lg">Quiz Me!</button>
+            </div>
         </div>
-
     </div>
+
+    <div id="quiz-pages" class="container"
+
+
 
     <script src="assets/style.css"></script>
 
