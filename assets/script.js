@@ -1,22 +1,15 @@
+// variables to reference quiz elements
+var startBtn = document.getElementById("start-button")
+var timer = document.getElementById("time-remaining")
 
+// start quiz function
+function startQuiz() {
 
-var
-var
-var displayBtn
+// hide the introduction page
 
-submitBtn.addEventListener("click", submitScore);
-displayBtn.addEventListener("click", showScores);
+var quizIntro = document.getElementById("quiz-start")
+quizIntro.setAttribute("class", "hide")
 
-function submitScore() {
-    var userScores = localStorage.getItem("UserScore") || [];
-    userScores.push({initials: userInput.value, score: 100});
-    localStorage.setItem("UserScore", JSON.stringify(userScores));
+// show the questions section
 
-}
-
-function showScores() {
-    var userScores = JSON.parse(localStorage.getItem("UserScore") || []);
-    for (var i = 0; i < userScores.length; i++){
-        console.log("User Initials: " + userScores[i].initials + " Score: " + userScores[i])
-    }
 }
