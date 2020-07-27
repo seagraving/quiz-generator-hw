@@ -52,117 +52,78 @@ var questions = [
 ];
 
 //setting values for timer
-var score = 0;
-var currentQuestion = -1;
-var timeLeft = 0;
-var timer;
+var currentQuestionIndex = 0;
+var time = questions.length * 10;
+var timerId;
 
 // create variables to reference elements
 var startBtn = document.getElementById("start-button")
 var quizIntro = document.getElementById("quiz-start")
 var timer = document.getElementById("time-left")
 
+
+var quizQuestions = document.getElementById("quiz-section")
+
+
+var userScore = document.getElementById("user-score")
+var submitBtn = document.getElementById("submit-initials")
+
+var highscoreBtn = document.getElementById("high-score-button")
+var leaderBoard = document.getElementById("high-scores")
+
 startBtn.addEventListener("click", startQuiz)
-//starts the countdown timer once start button is clicked
-function startQuiz() {
-  console.log('started')
-
-    timeLeft = 60;
-    document.getElementById("time-left").innerHTML = timeLeft;
-
-    timer = setInterval(function() {
-        timeLeft--;
-        document.getElementById("time-left").innerHTML = timeLeft;
-        //end the game when timer is at 0
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            endGame(); 
-        }
-    }, 1000);
-
-    nextQuestion();
-}
-
-
-//stop timer to end game
-function endGame() {
-    clearInterval(timer);
+// starts quiz
+function startQuiz(){
+    
+    // hide the introduction page
+    quizIntro.setAttribute("class", "hide");
+    
 
     
-   
+    // show the questions section on the index
+    quizQuestions.setAttribute("class", "show");
 
-    document.getElementById("quiz-section").innerHTML = quizSection;
+    // start timer
+    timerId = setInterval(timeLeft, 1000);
+    // show the start time
+    timer.textContent = time;
+
+    getQuestion();
+
+
 }
 
-//store the scores on local storage
-function storeScore() {
-    localStorage.setItem("highscore", score);
-    localStorage.setItem("highscoreName",  document.getElementById('name').value);
-    getScore();
-}
+// decrement timer
+function timeLeft() {
+  time--;
+  timer.textContent = time;
 
-
-function getScore() {
-    
-}
-
-//clear the score to reset game
-function clearScore() {
-    localStorage.setItem("highscore", "");
-    localStorage.setItem("highscoreName",  "");
-
-    resetGame();
-}
-
-
-function resetGame() {
+  if (time === 0) {
     clearInterval(timer);
-    score = 0;
-    currentQuestion = -1;
-    timeLeft = 0;
-    timer = null;
+    quizEnd();
+  }
+}
 
-    document.getElementById("time-left").innerHTML = timeLeft;
+// get questions for the quiz
+function getQuestion() {
+  var questionAsked = questions[currentQuestionIndex];
+
+  questionAsked.choices.forEach(function(choice, i){
+    var choiceEl = document.createElement("button");
+    choiceEl.setAttribute("class", "choice");
+    choiceEl.setAttribute("value", "choice");
+
+    choiceEl.textContent = i + 1 + ". " + choice;
+
+    // event listener for each choice
+    choiceEl.addEventListener
+  })
+
 
 
 }
 
-//takes 10 seconds off timer if answer is incorrect
-function incorrect() {
-    timeLeft -= 10; 
-    nextQuestion();
-}
 
-//increase score by 10 points for right answer
-function correct() {
-    score += 10;
-    nextQuestion();
-}
+// store/retrieve scores in local storage
 
-//loops through the questions 
-function nextQuestion() {
-    currentQuestion++;
-
-    if (currentQuestion > questions.length - 1) {
-        endGame();
-        return;
-    }
-
-    var quizSection = "<h2>" + questions[currentQuestion].title + "</h2>"
-
-    for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++) {
-        var buttonCode = "<button onclick=\"[ANS]\">[CHOICE]</button>"; 
-        buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);
-        if (questions[currentQuestion].choices[buttonLoop] == questions[currentQuestion].answer) {
-            buttonCode = buttonCode.replace("[ANS]", "correct()");
-        } else {
-            buttonCode = buttonCode.replace("[ANS]", "incorrect()");
-        }
-        quizSection += buttonCode
-    }
-
-
-    document.getElementById("quizBody").innerHTML = quizSection;
-}
-
-
+startQuiz()
