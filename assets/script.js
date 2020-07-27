@@ -1,27 +1,34 @@
-
-
-// variables to reference elements
+// create variables to reference elements
 var startBtn = document.getElementById("start-button")
+var quizIntro = document.getElementById("quiz-start")
 var timer = document.getElementById("time-left")
-var time = 60;
+var timerInterval;
+var timerCount = 60;
 
 var quizQuestions = document.getElementById("quiz-section")
+
+
 var userScore = document.getElementById("user-score")
+var submitBtn = document.getElementById("submit-initials")
+
+var highscoreBtn = document.getElementById("high-score-button")
 var leaderBoard = document.getElementById("high-scores")
+let highScores = [];
+
+// store/retrieve scores in local storage
+if (JSON.parse(localStorage.getItem("scores")) !== null) {
+    highScores = JSON.parse(localStorage.getItem("scores"));
+}
 
 
 startBtn.addEventListener("click", startQuiz)
 
 function startQuiz(){
     console.log("started")
-
-    
-     
-
-    
     // hide the introduction page
-    var quizIntro = document.getElementById("quiz-start")
-    quizIntro.setAttribute("class", "hide")
+    quizIntro.setAttribute("class", "container");
+    
+
     
     // show the questions section on the index
     var quizStart = document.getElementById("quiz-start")
@@ -39,51 +46,33 @@ function startQuiz(){
 function getQuestion() {
 
 
+
 }
 
-// questions to be asked
-
-var myquestions = [
-    {
-        question: "What is Javascript?",
+function setTime() {
+    var timerInterval = setInterval(function() {
+      time--;
+      timer.textContent = time;
         
-        answers: {
-            a: "A scripting or programming language that lets you incorporate more complex features on web pages", 
+      if(time === 0) {
+        clearInterval(timerInterval);
+        end();
+      }
+     
+  
+    }, 1000);
+}
 
-            b: "Manual about different coffee varietes",
 
-            c: "A style sheet language used to describe how HTML elements will be displayed on screen",
+startQuiz()
 
-        },
 
-        correctAnswer: "a"
 
-    },
-
-    {
-        question: "Commonly used data types do NOT include:",
-        
-        answers: {
-            a: "booleans", 
-
-            b: "strings",
-
-            c: "popups",
-
-        },
-
-        correctAnswer: "c"
-
-    },
-]
 
 
 // score
 
 
-
-
-// start quiz function
 
 
 // get questions for the quiz
