@@ -63,6 +63,8 @@ var timer = document.getElementById("time-left")
 
 
 var quizQuestions = document.getElementById("quiz-section")
+var questionArea = document.getElementById("question")
+
 
 
 var userScore = document.getElementById("user-score")
@@ -72,6 +74,7 @@ var highscoreBtn = document.getElementById("high-score-button")
 var leaderBoard = document.getElementById("high-scores")
 
 startBtn.addEventListener("click", startQuiz)
+
 // starts quiz
 function startQuiz(){
     
@@ -81,7 +84,7 @@ function startQuiz(){
 
     
     // show the questions section on the index
-    quizQuestions.setAttribute("class", "show");
+    quizQuestions.classList.remove("hide");
 
     // start timer
     timerId = setInterval(timeLeft, 1000);
@@ -107,16 +110,14 @@ function timeLeft() {
 // get questions for the quiz
 function getQuestion() {
   var questionAsked = questions[currentQuestionIndex];
+  questionArea.innerText = questionAsked.title
 
   questionAsked.choices.forEach(function(choice, i){
     var choiceEl = document.createElement("button");
-    choiceEl.setAttribute("class", "choice");
-    choiceEl.setAttribute("value", "choice");
-
-    choiceEl.textContent = i + 1 + ". " + choice;
+  
 
     // event listener for each choice
-    choiceEl.addEventListener
+    choiceEl.addEventListener("click")
   })
 
 
@@ -126,4 +127,4 @@ function getQuestion() {
 
 // store/retrieve scores in local storage
 
-startQuiz()
+// startQuiz()
